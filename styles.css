@@ -163,3 +163,140 @@ footer {
 }
 
 }
+
+.tweet-card {
+  text-align: center;
+}
+
+.tweet-preview {
+  background: #000;
+  border: 1px solid #2f3336;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: left;
+  max-width: 620px;
+  margin: 0 auto 22px;
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.tweet-avatar {
+  width: 48px;
+  height: 48px;
+  background: #111;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.tweet-header strong {
+  display: block;
+  font-size: 17px;
+}
+
+.tweet-header span {
+  color: #71767b;
+  font-size: 15px;
+}
+
+.tweet-preview p {
+  color: white;
+  font-size: 19px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.copy-btn {
+  background: transparent;
+  color: #1d9bf0;
+  border: 1px solid #1d9bf0;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.copy-btn:hover {
+  background: rgba(29, 155, 240, 0.12);
+}
+
+.counter {
+  margin-top: 22px;
+  color: #ffd1dc;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.countries {
+  margin-top: 30px;
+}
+
+.countries h3 {
+  color: #ffd500;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.country-list span {
+  background: #0b0b0b;
+  border: 1px solid #333;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.qr-box {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.qr-box img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  background: white;
+  padding: 5px;
+}
+
+.qr-box p {
+  color: #999;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.floating-share {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1d9bf0;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 15px 34px;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(29, 155, 240, 0.45);
+  z-index: 999;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  padding: 45px 20px 90px;
+  font-size: 14px;
+}
