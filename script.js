@@ -1,22 +1,33 @@
 const API_URL = "https://share-counter.macob39.workers.dev";
 
-const tweetText = document.getElementById("tweetText").innerText.trim();
+const tweetTextElement = document.getElementById("tweetText");
+const shareButton = document.getElementById("shareX");
+const floatingShareButton = document.getElementById("floatingShare");
+const copyButton = document.getElementById("copyTweet");
+const shareCount = document.getElementById("shareCount");
+const countryList = document.getElementById("countryList");
+
+const tweetText = tweetTextElement.innerText.trim();
 
 const tweetUrl =
   "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetText);
 
-document.getElementById("shareX").href = tweetUrl;
-document.getElementById("floatingShare").href = tweetUrl;
+shareButton.href = tweetUrl;
+floatingShareButton.href = tweetUrl;
 
 loadStats();
 
-document.getElementById("copyTweet").addEventListener("click", async () => {
-  await navigator.clipboard.writeText(tweetText);
-  document.getElementById("copyTweet").innerText = "Tweet copiado";
+copyButton.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(tweetText);
+    copyButton.innerText = "Tweet copiado";
+  } catch (error) {
+    alert("No se pudo copiar el tweet. Por favor copia el texto manualmente.");
+  }
 });
 
-document.getElementById("shareX").addEventListener("click", registerClick);
-document.getElementById("floatingShare").addEventListener("click", registerClick);
+shareButton.addEventListener("click", registerClick);
+floatingShareButton.addEventListener("click", registerClick);
 
 async function registerClick() {
   try {
@@ -26,8 +37,7 @@ async function registerClick() {
 
     const data = await response.json();
 
-    document.getElementById("shareCount").innerText =
-      data.total.toLocaleString("en-US");
+    shareCount.innerText = data.total.toLocaleString("en-US");
 
     loadStats();
   } catch (error) {
@@ -40,18 +50,21 @@ async function loadStats() {
     const response = await fetch(`${API_URL}/stats`);
     const data = await response.json();
 
-    document.getElementById("shareCount").innerText =
-      data.total.toLocaleString("en-US");
-
+    shareCount.innerText = data.total.toLocaleString("en-US");
     renderCountries(data.countries);
   } catch (error) {
     console.error("Stats error:", error);
+    countryList.innerHTML = "<span>No se pudo cargar países</span>";
   }
 }
 
 function renderCountries(countries) {
-  const countryList = document.getElementById("countryList");
   countryList.innerHTML = "";
+
+  if (!countries || countries.length === 0) {
+    countryList.innerHTML = "<span>Aún no hay países registrados</span>";
+    return;
+  }
 
   countries.forEach(country => {
     const span = document.createElement("span");
@@ -68,26 +81,4 @@ function countryCodeToFlag(code) {
     .replace(/./g, char =>
       String.fromCodePoint(127397 + char.charCodeAt())
     );
-}
-
-const tweetText = document.getElementById("tweetText").innerText.trim();
-
-const tweetUrl =
-  "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweetText);
-
-document.getElementById("shareX").href = tweetUrl;
-document.getElementById("floatingShare").href = tweetUrl;
-
-document.getElementById("copyTweet").addEventListener("click", async () => {
-  await navigator.clipboard.writeText(tweetText);
-  document.getElementById("copyTweet").innerText = "Tweet copiado";
-});
-
-document.getElementById("shareX").addEventListener("click", updateFakeCounter);
-document.getElementById("floatingShare").addEventListener("click", updateFakeCounter);
-
-function updateFakeCounter() {
-  const counter = document.getElementById("shareCount");
-  const current = Number(counter.innerText.replace(/,/g, ""));
-  counter.innerText = (current + 1).toLocaleString("en-US");
 }
